@@ -30,7 +30,6 @@ struct ContentView: View {
 
 struct ItemListView: View {
     @Binding var items: [Item]
-    @Environment(\.modelContext) var modelContext
     
     var body: some View {
         VStack {
