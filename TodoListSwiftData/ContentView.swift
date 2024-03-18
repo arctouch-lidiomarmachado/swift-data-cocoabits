@@ -6,24 +6,20 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @State var path: [Item] = []
+    @State var items: [Item] = []
     @State var sort: SortDescriptor<Item> = SortDescriptor(\.itemTitle)
     
     var body: some View {
-        NavigationStack(path: $path) {
-            ItemListView()
+        NavigationStack {
+            ItemListView(items: $items)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("", systemImage: "plus") {
-                        path.append(Item())
+                    NavigationLink(destination: ItemDetailView(item: Item(), items: $items, exhibitionMode: .insert)) {
+                        Image(systemName: "plus")
                     }
                 }
-            }
-            .navigationDestination(for: Item.self) { item in
-                ItemDetailView(item: item, exhibitionMode: .insert)
             }
             .navigationTitle("Items")
         }
@@ -31,8 +27,7 @@ struct ContentView: View {
 }
 
 struct ItemListView: View {
-//    @Query(filter: #Predicate<Item> { $0.isCompleted == false && $0.name == "Store" }, sort: [SortDescriptor(\Item.name, order: .forward)]) var items: [Item]
-    @Query var items: [Item]
+    @Binding var items: [Item]
     @Environment(\.modelContext) var modelContext
     
     var body: some View {
@@ -42,12 +37,12 @@ struct ItemListView: View {
                                        systemImage: "list.bullet")
             } else {
                 List {
-                    ForEach(items) { item in
-                        NavigationLink(destination: ItemDetailView(item: item, exhibitionMode: .update)) {
+                    ForEach(items.indices, id: \.self) { index in
+                        NavigationLink(destination: ItemDetailView(item: items[index], items: $items, exhibitionMode: .update)) {
                             HStack {
-                                Text(item.itemTitle)
+                                Text(items[index].itemTitle)
                                 Spacer()
-                                if item.isCompleted {
+                                if items[index].isCompleted {
                                     Image(systemName: "checkmark.circle.fill")
                                         .foregroundStyle(.green)
                                         .font(.largeTitle)
@@ -60,30 +55,11 @@ struct ItemListView: View {
                         }
                     }.onDelete { indexSet in
                         for index in indexSet {
-                            modelContext.delete(items[index])
+                            items.remove(at: index)
                         }
                     }
                 }
             }
         }
     }
-}
-
-#Preview {
-    let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
-    let modelContainer = try! ModelContainer(for: Item.self, configurations: configuration)
-    let modelContext = ModelContext(modelContainer)
-    let items = [
-        Item(itemTitle: "Item 1", isCompleted: true),
-        Item(itemTitle: "Item 2", isCompleted: true),
-        Item(itemTitle: "Item 3", isCompleted: false),
-        Item(itemTitle: "Item 4", isCompleted: false)
-    ]
-    
-    items.forEach { item in
-        modelContext.insert(item)
-        try! modelContext.save()
-    }
-    
-    return ContentView().modelContainer(modelContainer)
 }

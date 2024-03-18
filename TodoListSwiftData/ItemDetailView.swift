@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 enum ExhibitionMode {
     case insert
@@ -14,35 +13,45 @@ enum ExhibitionMode {
 }
 
 struct ItemDetailView: View {
-    @Bindable var item: Item
+    let item: Item
+    @Binding var items: [Item]
+    @State private var dynamicItem: Item
     @Environment(\.dismiss) var dismiss
-    @Environment(\.modelContext) var modelContext
     var exhibitionMode: ExhibitionMode
+    
+    init(item: Item, items: Binding<[Item]>, exhibitionMode: ExhibitionMode) {
+        self.item = item
+        self._items = items
+        self._dynamicItem = State(initialValue: item)
+        self.exhibitionMode = exhibitionMode
+    }
     
     var body: some View {
         Form {
             LabeledContent("Item:") {
-                TextField("", text: $item.itemTitle)
+                TextField("", text: $dynamicItem.itemTitle)
             }
             LabeledContent("Completed:") {
-                Toggle("", isOn: $item.isCompleted)
+                Toggle("", isOn: $dynamicItem.isCompleted)
             }
         }.toolbar {
             Button("Save") {
                 if exhibitionMode == .insert {
-                    modelContext.insert(item)
+                    items.append(dynamicItem)
+                } else {
+                    update()
                 }
                 dismiss()
             }
         }
     }
-}
-
-#Preview {
-    let modelConfig = ModelConfiguration(isStoredInMemoryOnly: true)
-    let modelContainer = try! ModelContainer(for: Item.self, configurations: modelConfig)
     
-    let item = Item(itemTitle: "", isCompleted: false)
-    
-    return ItemDetailView(item: item, exhibitionMode: .insert).modelContainer(modelContainer)
+    private func update() {
+        guard let item = items.first(where: { $0.itemTitle == dynamicItem.itemTitle
+            && $0.isCompleted == dynamicItem.isCompleted }) else { return }
+        item.itemTitle = dynamicItem.itemTitle
+        item.isCompleted = dynamicItem.isCompleted
+        items.append(Item())
+        items.removeLast()
+    }
 }

@@ -10,20 +10,9 @@ import SwiftData
 
 @main
 struct TodoListSwiftDataApp: App {
-    
-    let modelContainer: ModelContainer
-    
-    init() {
-        do {
-            modelContainer = try ModelContainer(for: Item.self, migrationPlan: ItemMigrationPlan.self)
-        } catch {
-            fatalError("Model container error...")
-        }
-    }
-    
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }.modelContainer(modelContainer)
+        }
     }
 }
