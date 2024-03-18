@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     @State var items: [Item] = []
-    @State var sort: SortDescriptor<Item> = SortDescriptor(\.itemTitle)
     
     var body: some View {
         NavigationStack {
