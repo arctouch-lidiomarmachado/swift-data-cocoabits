@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import SwiftData
 
-class Item: Hashable {
+@Model
+class Item {
     var itemTitle: String
     var isCompleted: Bool
     
@@ -15,12 +17,41 @@ class Item: Hashable {
         self.itemTitle = itemTitle
         self.isCompleted = isCompleted
     }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(itemTitle)
-    }
-    
-    static func == (lhs: Item, rhs: Item) -> Bool {
-        return lhs.isCompleted == rhs.isCompleted && lhs.itemTitle == rhs.itemTitle
-    }
 }
+
+//typealias Item = ItemSchema2.Item
+//
+//enum ItemSchema1: VersionedSchema {
+//    static var models: [any PersistentModel.Type] = [Item.self]
+//    
+//    static var versionIdentifier: Schema.Version = Schema.Version(1, 0, 0)
+//    
+//    @Model
+//    class Item {
+//        var itemTitle: String
+//        var isCompleted: Bool
+//        
+//        init(itemTitle: String = "", isCompleted: Bool = false) {
+//            self.itemTitle = itemTitle
+//            self.isCompleted = isCompleted
+//        }
+//    }
+//}
+//
+//enum ItemSchema2: VersionedSchema {
+//    static var models: [any PersistentModel.Type] = [Item.self]
+//    
+//    static var versionIdentifier: Schema.Version = Schema.Version(2, 0, 0)
+//    
+//    @Model
+//    class Item {
+//        @Attribute(.unique, originalName: "name")
+//        var itemTitle: String
+//        var isCompleted: Bool
+//        
+//        init(itemTitle: String = "", isCompleted: Bool = false) {
+//            self.itemTitle = itemTitle
+//            self.isCompleted = isCompleted
+//        }
+//    }
+//}

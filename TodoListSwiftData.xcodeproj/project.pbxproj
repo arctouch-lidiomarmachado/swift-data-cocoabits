@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7006C9FB2BAC6EBC00500350 /* ItemMigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7006C9FA2BAC6EBC00500350 /* ItemMigrationPlan.swift */; };
 		70DA99E42B9B8B9500ACD56F /* TodoListSwiftDataApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA99E32B9B8B9500ACD56F /* TodoListSwiftDataApp.swift */; };
 		70DA99E62B9B8B9500ACD56F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DA99E52B9B8B9500ACD56F /* ContentView.swift */; };
 		70DA99E82B9B8B9600ACD56F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70DA99E72B9B8B9600ACD56F /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7006C9FA2BAC6EBC00500350 /* ItemMigrationPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemMigrationPlan.swift; sourceTree = "<group>"; };
 		70DA99E02B9B8B9500ACD56F /* TodoListSwiftData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoListSwiftData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70DA99E32B9B8B9500ACD56F /* TodoListSwiftDataApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListSwiftDataApp.swift; sourceTree = "<group>"; };
 		70DA99E52B9B8B9500ACD56F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				70DA99E52B9B8B9500ACD56F /* ContentView.swift */,
 				70DA99F52B9B941800ACD56F /* ItemDetailView.swift */,
 				70DA99F12B9B8BAE00ACD56F /* Item.swift */,
+				7006C9FA2BAC6EBC00500350 /* ItemMigrationPlan.swift */,
 				70DA99E72B9B8B9600ACD56F /* Assets.xcassets */,
 				70DA99E92B9B8B9600ACD56F /* Preview Content */,
 			);
@@ -146,6 +149,7 @@
 				70DA99F62B9B941800ACD56F /* ItemDetailView.swift in Sources */,
 				70DA99E62B9B8B9500ACD56F /* ContentView.swift in Sources */,
 				70DA99F22B9B8BAE00ACD56F /* Item.swift in Sources */,
+				7006C9FB2BAC6EBC00500350 /* ItemMigrationPlan.swift in Sources */,
 				70DA99E42B9B8B9500ACD56F /* TodoListSwiftDataApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

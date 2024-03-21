@@ -13,18 +13,10 @@ enum ExhibitionMode {
 }
 
 struct ItemDetailView: View {
-    let itemDetail: Item
-    @Binding var items: [Item]
-    @State private var item: Item
+    @Bindable var item: Item
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
     var exhibitionMode: ExhibitionMode
-    
-    init(item: Item, items: Binding<[Item]>, exhibitionMode: ExhibitionMode) {
-        self.itemDetail = item
-        self._items = items
-        self._item = State(initialValue: item)
-        self.exhibitionMode = exhibitionMode
-    }
     
     var body: some View {
         Form {
@@ -37,21 +29,10 @@ struct ItemDetailView: View {
         }.toolbar {
             Button("Save") {
                 if exhibitionMode == .insert {
-                    items.append(item)
-                } else {
-                    update()
-                }
+                    modelContext.insert(item)
+                } 
                 dismiss()
             }
         }
-    }
-    
-    private func update() {
-        guard let firstItem = items.first(where: { $0.itemTitle == item.itemTitle
-            && $0.isCompleted == item.isCompleted }) else { return }
-        firstItem.itemTitle = item.itemTitle
-        firstItem.isCompleted = item.isCompleted
-        items.append(Item())
-        items.removeLast()
     }
 }

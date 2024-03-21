@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     @State var items: [Item] = []
@@ -13,7 +14,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            ItemListView(items: $items)
+            ItemListView()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("", systemImage: "plus") {
@@ -21,7 +22,7 @@ struct ContentView: View {
                     }
                 }
             }.navigationDestination(for: Item.self) { item in
-                ItemDetailView(item: item, items: $items, exhibitionMode: .insert)
+                ItemDetailView(item: item, exhibitionMode: .insert)
             }
             .navigationTitle("Items")
         }
@@ -29,7 +30,8 @@ struct ContentView: View {
 }
 
 struct ItemListView: View {
-    @Binding var items: [Item]
+    @Query var items: [Item]
+    @Environment(\.modelContext) var modelContext
     
     var body: some View {
         VStack {
@@ -39,7 +41,7 @@ struct ItemListView: View {
             } else {
                 List {
                     ForEach(items, id: \.self) { item in
-                        NavigationLink(destination: ItemDetailView(item: item, items: $items, exhibitionMode: .update)) {
+                        NavigationLink(destination: ItemDetailView(item: item, exhibitionMode: .update)) {
                             HStack {
                                 Text(item.itemTitle)
                                 Spacer()
@@ -56,7 +58,7 @@ struct ItemListView: View {
                         }
                     }.onDelete { indexSet in
                         for index in indexSet {
-                            items.remove(at: index)
+                            modelContext.delete(items[index])
                         }
                     }
                 }
