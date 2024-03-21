@@ -13,31 +13,31 @@ enum ExhibitionMode {
 }
 
 struct ItemDetailView: View {
-    let item: Item
+    let itemDetail: Item
     @Binding var items: [Item]
-    @State private var dynamicItem: Item
+    @State private var item: Item
     @Environment(\.dismiss) var dismiss
     var exhibitionMode: ExhibitionMode
     
     init(item: Item, items: Binding<[Item]>, exhibitionMode: ExhibitionMode) {
-        self.item = item
+        self.itemDetail = item
         self._items = items
-        self._dynamicItem = State(initialValue: item)
+        self._item = State(initialValue: item)
         self.exhibitionMode = exhibitionMode
     }
     
     var body: some View {
         Form {
             LabeledContent("Item:") {
-                TextField("", text: $dynamicItem.itemTitle)
+                TextField("", text: $item.itemTitle)
             }
             LabeledContent("Completed:") {
-                Toggle("", isOn: $dynamicItem.isCompleted)
+                Toggle("", isOn: $item.isCompleted)
             }
         }.toolbar {
             Button("Save") {
                 if exhibitionMode == .insert {
-                    items.append(dynamicItem)
+                    items.append(item)
                 } else {
                     update()
                 }
@@ -47,10 +47,10 @@ struct ItemDetailView: View {
     }
     
     private func update() {
-        guard let item = items.first(where: { $0.itemTitle == dynamicItem.itemTitle
-            && $0.isCompleted == dynamicItem.isCompleted }) else { return }
-        item.itemTitle = dynamicItem.itemTitle
-        item.isCompleted = dynamicItem.isCompleted
+        guard let firstItem = items.first(where: { $0.itemTitle == item.itemTitle
+            && $0.isCompleted == item.isCompleted }) else { return }
+        firstItem.itemTitle = item.itemTitle
+        firstItem.isCompleted = item.isCompleted
         items.append(Item())
         items.removeLast()
     }
