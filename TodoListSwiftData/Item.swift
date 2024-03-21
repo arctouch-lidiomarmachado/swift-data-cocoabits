@@ -28,11 +28,12 @@ class Item {
 //    
 //    @Model
 //    class Item {
-//        var itemTitle: String
+//        @Attribute(originalName: "itemTitle")
+//        var itemName: String
 //        var isCompleted: Bool
-//        
+//    
 //        init(itemTitle: String = "", isCompleted: Bool = false) {
-//            self.itemTitle = itemTitle
+//            self.itemName = itemTitle
 //            self.isCompleted = isCompleted
 //        }
 //    }
@@ -45,12 +46,12 @@ class Item {
 //    
 //    @Model
 //    class Item {
-//        @Attribute(.unique)
-//        var itemTitle: String
+//        @Attribute(.unique, originalName: "itemTitle")
+//        var itemName: String
 //        var isCompleted: Bool
-//        
+//    
 //        init(itemTitle: String = "", isCompleted: Bool = false) {
-//            self.itemTitle = itemTitle
+//            self.itemName = itemTitle
 //            self.isCompleted = isCompleted
 //        }
 //    }

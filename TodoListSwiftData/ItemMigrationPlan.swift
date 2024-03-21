@@ -1,13 +1,13 @@
+////
+////  ItemMigrationPlan.swift
+////  TodoListSwiftData
+////
+////  Created by Lidiomar Machado on 09/03/24.
+////
 //
-//  ItemMigrationPlan.swift
-//  TodoListSwiftData
+//import Foundation
+//import SwiftData
 //
-//  Created by Lidiomar Machado on 09/03/24.
-//
-
-import Foundation
-import SwiftData
-
 //struct ItemMigrationPlan: SchemaMigrationPlan {
 //    static var schemas: [VersionedSchema.Type] = [ItemSchema1.self, ItemSchema2.self]
 //    
@@ -25,11 +25,11 @@ import SwiftData
 //        var usedNames = Set<String>()
 //
 //        for item in items {
-//            if usedNames.contains(item.itemTitle) {
+//            if usedNames.contains(item.itemName) {
 //                context.delete(item)
 //            }
 //
-//            usedNames.insert(item.itemTitle)
+//            usedNames.insert(item.itemName)
 //        }
 //
 //        try! context.save()
