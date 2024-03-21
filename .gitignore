@@ -1,0 +1,7 @@
+# User-specific Xcode settings
+*.xcuserdatad
+xcuserdata/
+
+# Build artifacts
+/build/
+*.xcodeproj/xcuserdata/
