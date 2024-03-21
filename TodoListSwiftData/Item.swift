@@ -45,7 +45,7 @@ class Item {
 //    
 //    @Model
 //    class Item {
-//        @Attribute(.unique, originalName: "name")
+//        @Attribute(.unique)
 //        var itemTitle: String
 //        var isCompleted: Bool
 //        
